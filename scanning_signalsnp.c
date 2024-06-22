@@ -52,11 +52,11 @@ void print_usage(const char *prog_name) {
     fprintf(stdout, "Required options:\n");
     fprintf(stdout, "   -g, --gemma  Intput the result of gemma analysis\n");
     fprintf(stdout, "   -s, --snpAnn    Intput the result of snpEff annotation\n");
-    fprintf(stdout, "   -n, --number  The sample number\n");
+    fprintf(stdout, "   -n, --number  The sample number in gemma model\n");
 
     fprintf(stdout, "Optional options:\n");
 
-    fprintf(stdout, "   -t, --threshold  The threshold for p-value\n");
+    fprintf(stdout, "   -t, --threshold  The threshold for p-value. default: 0.05/total_snps\n");
     fprintf(stdout, "   -pre, --prefix  Prefix of the output\n");
     fprintf(stdout, "   -o, --output The output path\n");
     fprintf(stdout, "   -h, --help      Display this help message\n");
@@ -228,7 +228,7 @@ void read_gemma_file(char *gemma_file, snp_info **snp_list, int *snp_num, float 
             continue;
         } else if (p_wald <= Pthreshold) {
             // calculate the Pve
-            pve = (2 * (pow(beta, 2) * af * (1 - af))) / (2 * beta * af * (1 - af) + pow(se, 2) * 2 * (number - n_miss) * af * (1 - af));
+            pve = (2 * (pow(beta, 2) * af * (1 - af))) / (2 * pow(beta, 2) * af * (1 - af) + pow(se, 2) * 2 * (number - n_miss) * af * (1 - af));
             // log_print(INFO, "SNP: %s, P-value: %e, Pve: %f", rs, p_wald, pve);
             if (*snp_num >= snp_list_size) {
                 snp_list_size += 100;

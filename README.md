@@ -10,9 +10,9 @@
    Required options:
       -g, --gemma  Intput the result of gemma analysis
       -s, --snpAnn    Intput the result of snpEff annotation
-      -n, --number  The sample number
+      -n, --number  The sample number in gemma model
    Optional options:
-      -t, --threshold  The threshold for p-value
+      -t, --threshold  The threshold for p-value. default: 0.05/total_snps
       -pre, --prefix  Prefix of the output
       -o, --output The output path
       -h, --help      Display this help message
@@ -47,10 +47,12 @@
    chr12:1591044 | 5.179233e-08 | 0.034843 | 7.285735
    -------------  ------------  ------------  ---------
    [2024-06-22 20:01:08] INFO: getting the annotation of signal snps from SnpEff annotation file ...
-   [2024-06-22 20:01:08] ERROR: Failed to open file ../../1.variant_calling/11.hybri_filter/annotation/2.snpeff/all.SNP.vcf.snpeff.tput
+   [2024-06-22 20:01:08] INFO: The result file is ./output_path/test.scanning_signalsnp.txt
+   [2024-06-22 20:01:08] INFO: INFO: Done
   ```
 
-  **The format of gemma_output.accoc.txt is:**
+  **The format of gemma_output.accoc.txt is:**  
+  note: Currently the script only applies to the results of gemma's LMM. The first line must be the same as the example below.
   ```
    chr     rs      ps      n_miss  allele1 allele0 af      beta    se      logl_H1 l_remle p_wald
    1       chr1:12363      12363   0       T       G       0.081   2.045538e+00    1.545180e+00    -9.536663e+02   2.022674e+00    1.867041e-01
